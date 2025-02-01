@@ -13,8 +13,8 @@ print(df.tail())  # Display the last few rows
 df.columns = ['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)', 'target']  
 
 # Convert categorical target labels to numerical if needed  
-if df['target'].dtype == 'object':  
-    df['target'] = df['target'].astype('category').cat.codes  
+label_encoder = LabelEncoder()  
+df['target'] = label_encoder.fit_transform(df['target'])  
 
 # Split the DataFrame into different species for visualization  
 df0 = df[df.target == 0]  
