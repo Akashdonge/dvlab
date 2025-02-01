@@ -1,32 +1,28 @@
-# Step 1: Import necessary libraries  
 import pandas as pd  
 import matplotlib.pyplot as plt  
-from sklearn.datasets import load_iris  
 from sklearn.model_selection import train_test_split  
 from sklearn.neighbors import KNeighborsClassifier  
 
-# Step 2: Load the Iris dataset  
-iris = load_iris()  
-
-# Step 3: Create a DataFrame from the Iris dataset  
-df = pd.DataFrame(iris.data, columns=iris.feature_names)  
-
-# Step 4: Add the target variable (species) to the DataFrame  
-df['target'] = iris.target  
-
-# Step 5: Explore the DataFrame (optional)  
+# Load the Iris dataset from CSV  
+df = pd.read_csv("iris_dataset.csv")  
 print(df.head())  # Display the first few rows  
-print(df.tail())  # Display the last few rows (useful for checking target values)  
+print(df.tail())  # Display the last few rows  
 
-# Step 6: Split the DataFrame into different species for visualization  
+# Rename columns if necessary to match expected feature names  
+# Assuming the CSV has columns: sepal_length, sepal_width, petal_length, petal_width, species  
+df.columns = ['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)', 'target']  
+
+# Convert categorical target labels to numerical if needed  
+if df['target'].dtype == 'object':  
+    df['target'] = df['target'].astype('category').cat.codes  
+
+# Split the DataFrame into different species for visualization  
 df0 = df[df.target == 0]  
 df1 = df[df.target == 1]  
 df2 = df[df.target == 2]  
 
-# Step 7: Visualize data using scatterplots  
 # Scatter plot for Sepal Length vs Sepal Width  
 plt.figure(figsize=(12, 5))  
-
 plt.subplot(1, 2, 1)  
 plt.xlabel('Sepal Length (cm)')  
 plt.ylabel('Sepal Width (cm)')  
@@ -49,17 +45,17 @@ plt.legend()
 plt.tight_layout()  
 plt.show()  
 
-# Step 8: Prepare data for model training  
+# Prepare data for model training  
 X = df.drop(['target'], axis='columns')  # Features  
 y = df.target  # Target variable (species)  
 
-# Step 9: Split the dataset into training and testing sets  
+# Split the dataset into training and testing sets  
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1)  
 
-# Step 10: Create and train the k-NN classifier  
+# Create and train the k-NN classifier  
 knn = KNeighborsClassifier(n_neighbors=10)  
 knn.fit(X_train, y_train)  
 
-# Step 11: Evaluate the model's performance  
+# Evaluate the model's performance  
 accuracy = knn.score(X_test, y_test)  
 print(f'Accuracy of the k-NN classifier: {accuracy * 100:.2f}%')
