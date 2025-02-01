@@ -14,7 +14,7 @@ df.columns = ['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'pet
 
 # Convert categorical target labels to numerical if needed  
 label_encoder = LabelEncoder()  
-df['target'] = label_encoder.fit_transform(df['target'])  
+df['target'] = label_encoder.fit_transform(df['target'])   
 
 # Split the DataFrame into different species for visualization  
 df0 = df[df.target == 0]  
@@ -22,8 +22,7 @@ df1 = df[df.target == 1]
 df2 = df[df.target == 2]  
 
 # Scatter plot for Sepal Length vs Sepal Width  
-plt.figure(figsize=(12, 5))  
-plt.subplot(1, 2, 1)  
+plt.figure(figsize=(10, 5))   
 plt.xlabel('Sepal Length (cm)')  
 plt.ylabel('Sepal Width (cm)')  
 plt.scatter(df0['sepal length (cm)'], df0['sepal width (cm)'], color="green", marker='+', label='Setosa')  
@@ -32,8 +31,8 @@ plt.scatter(df2['sepal length (cm)'], df2['sepal width (cm)'], color="red", mark
 plt.title('Sepal Dimensions')  
 plt.legend()  
 
-# Scatter plot for Petal Length vs Petal Width  
-plt.subplot(1, 2, 2)  
+# Scatter plot for Petal Length vs Petal Width   
+plt.figure(figsize=(10, 5))
 plt.xlabel('Petal Length (cm)')  
 plt.ylabel('Petal Width (cm)')  
 plt.scatter(df0['petal length (cm)'], df0['petal width (cm)'], color="green", marker='+', label='Setosa')  
@@ -41,8 +40,6 @@ plt.scatter(df1['petal length (cm)'], df1['petal width (cm)'], color="blue", mar
 plt.scatter(df2['petal length (cm)'], df2['petal width (cm)'], color="red", marker='o', label='Virginica')  
 plt.title('Petal Dimensions')  
 plt.legend()  
-
-plt.tight_layout()  
 plt.show()  
 
 # Prepare data for model training  
