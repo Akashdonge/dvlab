@@ -43,7 +43,7 @@ plt.legend()
 plt.show()  
 
 # Prepare data for model training  
-X = df.drop(['target'], axis='columns')  # Features  
+X = df[['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)']]
 y = df.target  # Target variable (species)  
 
 # Split the dataset into training and testing sets  
@@ -55,4 +55,4 @@ knn.fit(X_train, y_train)
 
 # Evaluate the model's performance  
 accuracy = knn.score(X_test, y_test)  
-print(f'Accuracy of the k-NN classifier: {accuracy * 100:.2f}%')
+print(f'Accuracy of the k-NN classifier: {accuracy * 100}')
